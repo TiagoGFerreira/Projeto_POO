@@ -7,7 +7,6 @@
  */
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Objetos
 {
@@ -19,11 +18,6 @@ namespace Objetos
         #region ATRIBUTOS 
         private int NUS;
         private List<string> Doencas;
-        private List<Consulta> Consultas;
-        private List<Diagnostico> Diagnosticos;
-        private List<Exame> Exames;
-        private List<Cirurgia> Cirurgias;
-
         #endregion
 
         #region COMPORTAMENTO
@@ -37,10 +31,6 @@ namespace Objetos
         {
             NUS = nus;
             Doencas = new List<string>();
-            Consultas = new List<Consulta>();
-            Cirurgias = new List<Cirurgia>();
-            Exames = new List<Exame>();
-            Diagnosticos = new List<Diagnostico>();
         }
 
         #endregion
@@ -64,44 +54,6 @@ namespace Objetos
             get { return Doencas; }
             set { Doencas = value; }
         }
-
-        /// <summary>
-        /// Propriedade que retorna a lista de consultas que o paciente tem agendadas
-        /// </summary>
-        public List<Consulta> consulta
-        {
-            get { return Consultas; }
-            set { Consultas = value; }
-        }
-
-        /// <summary>
-        /// Propriedade que retorna a lista de exames do paciente
-        /// </summary>
-        public List<Exame> exame
-        {
-            get { return Exames; }
-            set { Exames = value; }
-        }
-
-        /// <summary>
-        /// Propriedade que retorna a lista de exames do paciente
-        /// </summary>
-        public List<Cirurgia> cirurgia
-        {
-            get { return Cirurgias; }
-            set { Cirurgias = value; }
-        }
-
-        /// <summary>
-        /// Propriedade que retorna a lista de exames do paciente
-        /// </summary>
-        public List<Diagnostico> diagnostico
-        {
-            get { return diagnostico; }
-            set { diagnostico = value; }
-        }
-
-
         #endregion
 
         #region Overrides
@@ -116,47 +68,6 @@ namespace Objetos
         #endregion
 
         #region OutrosMétodos
-
-        /// <summary>
-        /// Método para adicionar uma consulta á lista de consultas do paciente
-        /// </summary>
-        public void AdicionarConsulta(Consulta consulta)
-        {
-            Consultas.Add(consulta);
-        }
-
-        /// <summary>
-        /// Método para adicionar um diagnostico á lista de diagnósticos do paciente
-        /// </summary>
-        public void AdicionarDiagnostico(Diagnostico diagnostico)
-        {
-            Diagnosticos.Add(diagnostico);
-        }
-
-        /// <summary>
-        /// Método para adicionar um exames á lista de exames do paciente
-        /// </summary>
-        public void AdicionarExame(Exame exame)
-        {
-            Exames.Add(exame);
-        }
-
-        /// <summary>
-        /// Método para adicionar uma cirurgia á lista de cirurgias do paciente
-        /// </summary>
-        public void AdicionarCirurgia(Cirurgia cirurgia)
-        {
-            Cirurgias.Add(cirurgia);
-        }
-
-        /// <summary>
-        /// Método para adicionar uma doença á lista de doenças do paciente
-        /// </summary>
-        public void AdicionarDoenca(string doenca)
-        {
-            Doencas.Add(doenca);
-        }
-
         /// <summary>
         /// Método que obtem o calculo pelos serviços que o paciente fez no hospital
         /// Ainda em desenvolvimento

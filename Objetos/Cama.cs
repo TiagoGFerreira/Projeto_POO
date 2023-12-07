@@ -55,6 +55,7 @@ namespace Objetos
         public bool EstadoCama
         {
             get { return Estado; }
+            set { Estado = value; }
         }
 
         /// <summary>
@@ -68,50 +69,8 @@ namespace Objetos
         #endregion
 
         #region OutrosMétodos
-
-        /// <summary>
-        /// Método que adiciona um paciente á cama
-        /// </summary>
-
-        public void AdicionarPaciente(int nus)
-        {
-            if (!Estado)
-            {
-                NUS = nus;
-                Estado = true; // A cama está ocupada
-                Console.WriteLine($"O Paciente com o nr utente {nus} associado à cama {NumeroCama}.");
-            }
-            else
-            {
-                Console.WriteLine($"A cama {NumeroCama} já está ocupada.");
-            }
-        }
-
-        /// <summary>
-        /// Método que remove um paciente da cama
-        /// </summary>
-        public void RemoverPaciente()
-        {
-            if (Estado)
-            {
-                Console.WriteLine($"Paciente com o nr {nus} removido da cama {NumeroCama}.");
-                nus = 0;
-                Estado = false; // A cama está desocupada
-            }
-            else
-            {
-                Console.WriteLine($"A cama {NumeroCama} já está desocupada.");
-            }
-        }
-
-        /// <summary>
-        /// Método para obter o estado da cama
-        /// </summary>
-        public bool ObterEstado()
-        {
-            return Estado;
-        }
         #endregion
+
         #region Destructor
         /// <summary>
         /// The destructor.

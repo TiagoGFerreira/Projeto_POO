@@ -6,6 +6,7 @@
  * POO-LESI
  */
 
+using System;
 using System.Collections.Generic;
 using Objetos;
 
@@ -60,6 +61,30 @@ namespace Dados
         public static void RemoverDiagnostico(Diagnostico diagnostico)
         {
             diagnosticos.Remove(diagnostico);
+        }
+
+        /// <summary>
+        /// Método para retornar a lista de diagnosticos
+        /// </summary>
+        public static List<Diagnostico> ListaDiagnosticos()
+        {
+            return diagnosticos;
+        }
+
+        /// <summary>
+        /// Método que obtem a lista de diagnosticos que o paciente fez numa certa data
+        /// </summary>
+        public static List<Diagnostico> ListaPaciente(int nus, DateTime dataInicio, DateTime dataFim)
+        {
+            List<Diagnostico> i = new List<Diagnostico>();
+            foreach (Diagnostico diagnostico in diagnosticos)
+            {
+                if (diagnostico.nus == nus && diagnostico.DataD >= dataInicio && diagnostico.DataD <= dataFim)
+                {
+                    i.Add(diagnostico);
+                }
+            }
+            return i;
         }
         #endregion
         #endregion

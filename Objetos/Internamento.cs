@@ -22,8 +22,6 @@ namespace Objetos
         private DateTime DataFim;
         private int NUS;
         private int idMedico;
-        private int idCama;
-        private static List<Internamento> internamentos = new List<Internamento>();
         #endregion
 
         #region COMPORTAMENTO
@@ -33,14 +31,12 @@ namespace Objetos
         /// Construtor com parâmetros da Classe Internamento
         /// </summary>
 
-        public Internamento(string motivo, int idM, int nus, int idCama)
+        public Internamento(string motivo, int idM, int nus, DateTime data)
         {
             Motivo = motivo;
             NUS = nus;
             idMedico = idM;
-            DataInicio = DateTime.Now;
-            internamentos.Add(this);
-            this.idCama = idCama;
+            DataInicio = data;
         }
         #endregion
 
@@ -82,15 +78,6 @@ namespace Objetos
         }
 
         /// <summary>
-        /// Propriedade que retorna o id da cama
-        /// </summary>
-        public int CamaID
-        {
-            get { return idCama; }
-            set { idCama = value; }
-        }
-
-        /// <summary>
         /// Propriedade que retorna Nr Utente de Saude do Paciente
         /// </summary>
         public int nus
@@ -115,33 +102,11 @@ namespace Objetos
         /// <summary>
         /// Método que adiciona a data final ao internamento
         /// </summary>
-        public void FimInternamento(Internamento internamento,DateTime datafim)
+        public static void FimInternamento(Internamento internamento,DateTime datafim)
         {
             internamento.DataFim = datafim;
         }
-
-        /// <summary>
-        /// Método que remove o internamento da lista internamentos
-        /// </summary>
-        public void RemoveInternamento(Internamento internamento)
-        {
-            internamentos.Remove(internamento);
-        }
-
-        /// <summary>
-        /// Método que obtem o calculo pelos internamentos que o paciente fez no hospital
-        /// Ainda em desenvolvimento
-        /// </summary>
-        public float CalcularCustoTotal(Custo custo, int nus, DateTime dataInicial, DateTime dataFinal)
-        {
-            if (NUS == nus)
-            {
-                float custoInternamento = (dataFinal - dataInicial).Days * custo.Custointernamento;
-                return custoInternamento;
-            }
-
-            return 0;
-        }
+        
 
         #endregion
         #region Destructor

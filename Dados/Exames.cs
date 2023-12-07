@@ -6,11 +6,12 @@
  * POO-LESI
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Objetos;
 
-namespace ServicosDLL
+namespace Dados
 {
     public static class Exames
     {
@@ -62,17 +63,33 @@ namespace ServicosDLL
         {
             exames.Remove(exame);
         }
+        public static List<Exame> ListaExames()
+        {
+            return exames;
+        }
+
+        /// <summary>
+        /// Método que obtem a lista de exames que o paciente fez numa certa data
+        /// </summary>
+        public static List<Exame> ListaPaciente(int nus, DateTime dataInicio, DateTime dataFim)
+        {
+            List<Exame> i = new List<Exame>();
+            foreach (Exame exame in exames)
+            {
+                if (exame.nus == nus && exame.data >= dataInicio && exame.data <= dataFim)
+                {
+                    i.Add(exame);
+                }
+            }
+            return i;
+        }
 
         /// <summary>
         /// Método que retorna em lista todos os exames feitos pelo paciente
         /// Método interno para poder ser acedido apenas dentro do mesmo assembly
         /// Ainda em desenvolvimento
         /// </summary>
-        public static List<Exame> ObterExamesPorPaciente(int nus)
-        {
-            return exames.Where(exame => exame.nus == nus).ToList();
-        }
-
+        
         #endregion
         #endregion
     }

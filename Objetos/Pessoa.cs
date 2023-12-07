@@ -8,7 +8,6 @@
 
 
 using System;
-using System.Collections.Generic;
 
 namespace Objetos
 {
@@ -45,7 +44,7 @@ namespace Objetos
         }
         public Pessoa(string Nome, DateTime Nascimento, string Sexo)
         {
-            idPessoa = nPessoa;
+            idPessoa = nPessoa; 
             nPessoa++;
             nome = Nome;
             nascimento = Nascimento;

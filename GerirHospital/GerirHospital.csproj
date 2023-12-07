@@ -50,13 +50,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dados\Dados.csproj">
-      <Project>{5a48d1b3-3dba-4955-974d-9da391de0dfa}</Project>
-      <Name>Dados</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Objetos\Objetos.csproj">
       <Project>{a950a5c3-f6ff-471b-8738-b657f30651bb}</Project>
       <Name>Objetos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Regras\Regras.csproj">
+      <Project>{75ffe332-2c86-4524-8595-cc2c74eef5d7}</Project>
+      <Name>Regras</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

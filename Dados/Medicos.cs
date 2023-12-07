@@ -7,6 +7,7 @@
  */
 
 using System.Collections.Generic;
+using System.Linq;
 using Objetos;
 
 
@@ -54,8 +55,6 @@ namespace Dados
             medicos.Add(medico);
         }
 
-
-
         /// <summary>
         /// Método para remover um medico da lista de medicos
         /// </summary>
@@ -65,6 +64,18 @@ namespace Dados
             medicos.Remove(medico);
         }
 
+        /// <summary>
+        /// Método para obter o medico atraves do seu id
+        /// </summary>
+        public static Medico ObterMedicoPorId(int id)
+        {
+            return medicos.FirstOrDefault(medico => medico.MedicoID == id);
+        }
+
+        public static List<Medico> ListaMedicos()
+        {
+            return medicos;
+        }
         #endregion
         #endregion
     }

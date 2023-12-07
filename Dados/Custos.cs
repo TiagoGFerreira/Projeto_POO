@@ -5,7 +5,9 @@
  * 20-11-2023
  * POO-LESI
  */
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Objetos;
 
 namespace Dados
@@ -16,7 +18,11 @@ namespace Dados
         /// Classe Custos
         /// </summary>
         #region ATRIBUTOS
-
+        private static double CustoConsulta = 30;
+        private static double CustoExame = 15.99;
+        private static double CustoCirurgia = 79.95;
+        private static double CustoDiagnostico = 45.5;
+        private static double CustoInternamento = 50;
         private static List<Custo> custos = new List<Custo>();
         #endregion
 
@@ -59,6 +65,30 @@ namespace Dados
         public static void RemoverCusto(Custo custo)
         {
             custos.Remove(custo);
+        }
+
+        /// <summary>
+        /// Método que retorna o custo final do serviços prestados ao cliente
+        /// </summary>
+        public static double CustoTotal(int nus, DateTime dataI, DateTime dataF)
+        {
+            Paciente paciente = Pacientes.ObterPacientePorNUS(nus);
+            if (paciente != null)
+            {
+                double custoConsultas = Consultas.ListaPaciente(nus, dataI, dataF).Count * CustoConsulta;
+                double custoExames = Exames.ListaPaciente(nus, dataI, dataF).Count * CustoExame;
+                double custoCirurgias = Cirurgias.ListaPaciente(nus, dataI, dataF).Count * CustoCirurgia;
+                double custoDiagnosticos = Diagnosticos.ListaPaciente(nus, dataI, dataF).Count * CustoDiagnostico;
+                double custoInternamentos = Internamentos.CalcularDiasInternamento(nus,dataI,dataF) * CustoInternamento;
+                return custoConsultas + custoExames + custoCirurgias + custoDiagnosticos + custoInternamentos;
+            }
+            return 0;
+            //colocar erro aqui caso não dê
+        }
+
+        public static List<Custo> ListaCustos()
+        {
+            return custos;
         }
         #endregion
         #endregion

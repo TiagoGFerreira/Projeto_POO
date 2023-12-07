@@ -21,7 +21,6 @@ namespace Objetos
         private string Especialidade;
         private int idMedico;
         private static int nMedico = 1;
-        private static List<Medico> medicos = new List<Medico>();
         #endregion
 
         #region COMPORTAMENTO
@@ -36,20 +35,11 @@ namespace Objetos
             idMedico = nMedico;
             nMedico++;
             Especialidade = especialidade;
-            medicos.Add(this);
         }
 
         #endregion
 
         #region PROPRIEDADES
-        /// <summary>
-        /// Propriedade que retorna a lista de médicos que estão inseridos no hospital
-        /// </summary>
-        public List<Medico> Medicos
-        {
-            get { return medicos; }
-            set { medicos = value; }
-        }
 
         /// <summary>
         /// Propriedade que retorna o id do medico
@@ -82,33 +72,10 @@ namespace Objetos
 
         #region OutrosMétodos
 
-        /// <summary>
-        /// Método para remover o Médico da lista medicos
-        /// </summary>
-        public void RemoverMedico(Medico medico)
-        {
-            medicos.Remove(medico);
-        }
-
-        /// <summary>
-        /// Método para agendar consulta para um paciente
-        /// </summary>
-        public Consulta RealizarConsulta(Paciente paciente, DateTime data, string descricao)
-        {
-            Consulta consulta = new Consulta(idMedico, paciente.nus, data, descricao);
-            paciente.consulta.Add(consulta);
-            return consulta;
-        }
-
-        /// <summary>
-        /// Método para obter o medico atraves do seu id
-        /// </summary>
-        public static Medico ObterMedicoPorId(int id)
-        {
-            return medicos.FirstOrDefault(medico => medico.idMedico == id);
-        }
+        
 
         #endregion
+
         #region Destructor
         /// <summary>
         /// The destructor.

@@ -77,6 +77,14 @@ namespace Dados
             }
         }
 
+        /// <summary>
+        /// Método para obter a lista Pessoas
+        /// </summary>
+        public static List<Pessoa> ListaPessoas()
+        {
+            return pessoas;
+        }
+
         #endregion
         #endregion
     }

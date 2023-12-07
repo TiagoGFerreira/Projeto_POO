@@ -77,10 +77,11 @@ namespace Objetos
         }
         #endregion
 
+
+        #region Overrides
         /// <summary>
         /// Override do método ToString para formatar as informações da Cirurgia
         /// </summary>
-        #region Overrides
         public override string ToString()
         {
             string idsMedicosStr = string.Join(", ", IdsMedicos);
@@ -91,6 +92,7 @@ namespace Objetos
 
         #region OutrosMétodos
         #endregion
+
         #region Destructor
         /// <summary>
         /// The destructor.

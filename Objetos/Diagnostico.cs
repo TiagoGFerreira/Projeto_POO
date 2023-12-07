@@ -20,10 +20,8 @@ namespace Objetos
         #region ATRIBUTOS
         private DateTime Data;
         private string descricao;
-        private List<Exame> examesfeitos;
         private int NUS;
         private int idMedico;
-        private static List<Diagnostico> diagnosticos;
         #endregion
 
         #region COMPORTAMENTO
@@ -32,14 +30,12 @@ namespace Objetos
         /// <summary>
         /// Construtor com parâmetros da Classe Diagnóstico
         /// </summary>
-        public Diagnostico(string Descricao , int idM, int nus)
+        public Diagnostico(string Descricao , int idM, int nus, DateTime data)
         {
-            Data = DateTime.Now;
+            Data = data;
             descricao = Descricao;
-           // examesfeitos = Exame.ObterExamesPorPaciente(Paciente.ObterPacientePorNUS(nus));
             idMedico = idM;
             NUS = nus;
-            diagnosticos.Add(this);
         }
         #endregion
 
@@ -93,14 +89,8 @@ namespace Objetos
         #endregion
 
         #region OutrosMétodos
-        /// <summary>
-        /// Método que remove o diagnóstico da lista diagnósticos
-        /// </summary>
-        public void RemoverDiagnostico(Diagnostico diagnóstico)
-        {
-            diagnosticos.Remove(diagnóstico);
-        }
         #endregion
+
         #region Destructor
         /// <summary>
         /// The destructor.

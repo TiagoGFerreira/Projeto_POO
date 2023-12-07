@@ -6,7 +6,9 @@
  * POO-LESI
  */
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Objetos;
 
 namespace Dados
@@ -58,6 +60,27 @@ namespace Dados
         public static void RemoverCirurga(Cirurgia cirurgia)
         {
             cirurgias.Remove(cirurgia);
+        }
+
+        public static List<Cirurgia> ListaCirurgias()
+        {
+            return cirurgias;
+        }
+
+        /// <summary>
+        /// Método que obtem a lista de consultas que o paciente fez numa certa data
+        /// </summary>
+        public static List<Cirurgia> ListaPaciente(int nus, DateTime dataInicio, DateTime dataFim)
+        {
+            List<Cirurgia> i = new List<Cirurgia>();
+            foreach (Cirurgia cirurgia in cirurgias)
+            {
+                if (cirurgia.nus == nus && cirurgia.data >= dataInicio && cirurgia.data <= dataFim)
+                {
+                    i.Add(cirurgia);
+                }
+            }
+            return i;
         }
         #endregion
         #endregion

@@ -71,6 +71,14 @@ namespace Dados
             return ListadePacientes.FirstOrDefault(p => p.nus == nus);
         }
 
+        /// <summary>
+        /// Retorna o objeto paciente de acordo com o seu Nr de utentne
+        /// </summary>
+        public static List<Paciente> ListaPacientes()
+        {
+            return pacientes;
+        }
+
         #endregion
         #endregion
     }

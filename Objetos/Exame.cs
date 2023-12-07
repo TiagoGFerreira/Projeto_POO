@@ -32,9 +32,9 @@ namespace Objetos
         /// <summary>
         /// Construtor com parâmetros da Classe Exame
         /// </summary>
-        public Exame(string nome , string resultado ,int nus, int MedicoID)
+        public Exame(string nome , string resultado ,int nus, int MedicoID, DateTime data)
         {
-            Data = DateTime.Now;
+            Data = data;
             Nome = nome;
             Resultado = resultado;
             NUS = nus;
@@ -65,7 +65,7 @@ namespace Objetos
         /// <summary>
         /// Propriedade que retorna a data em que o exame foi realizado
         /// </summary>
-        public DateTime DataD
+        public DateTime data
         {
             get { return Data; }
             set { Data = value; }
@@ -102,6 +102,7 @@ namespace Objetos
 
         #region Outros Métodos
         #endregion
+
         #region Destructor
         /// <summary>
         /// The destructor.
