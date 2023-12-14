@@ -51,7 +51,14 @@
     <Compile Include="Medico.cs" />
     <Compile Include="Paciente.cs" />
     <Compile Include="Pessoa.cs" />
+    <Compile Include="PessoaC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Excecoes\Excecoes.csproj">
+      <Project>{39b7391c-e2bb-404a-8c9c-7840c26a79e7}</Project>
+      <Name>Excecoes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

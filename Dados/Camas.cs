@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Excecoes;
 using Objetos;
 
 namespace Dados
@@ -148,6 +149,24 @@ namespace Dados
         {
             List<Cama> camas = Camas.CamasDesocupadas();
             return camas.FirstOrDefault().Numerocama;
+        }
+
+
+        public static bool VerificaIDCama(int idC)
+        {
+            if (!(idC.ToString().Length == 9))
+            {
+                throw new IDException("O ID da cama nao e válido");
+            }
+
+            foreach (Cama cama in camas)
+            {
+                if (cama.Numerocama == idC)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
         #endregion

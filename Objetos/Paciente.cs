@@ -6,6 +6,8 @@
  * POO-LESI
  */
 
+using Excecoes;
+using System;
 using System.Collections.Generic;
 
 namespace Objetos
@@ -13,6 +15,8 @@ namespace Objetos
     /// <summary>
     /// Classe Paciente, herda da classe Pessoa
     /// </summary>
+
+    [Serializable]
     public class Paciente : Pessoa
     {
         #region ATRIBUTOS 
@@ -29,8 +33,20 @@ namespace Objetos
         /// </summary>
         public Paciente(int nus, Pessoa pessoa) : base(pessoa.Nome, pessoa.DataNasc, pessoa.Sexo)
         {
-            NUS = nus;
-            Doencas = new List<string>();
+            try
+            {
+                if(!(nus.ToString().Length == 9))
+                {
+                    throw new NUSException("O NR Utente de saude nao e valido");
+                }
+                NUS = nus;
+                Doencas = new List<string>();
+            }catch(Exception ex) 
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
+            
         }
 
         #endregion
@@ -68,22 +84,7 @@ namespace Objetos
         #endregion
 
         #region OutrosMétodos
-        /// <summary>
-        /// Método que obtem o calculo pelos serviços que o paciente fez no hospital
-        /// Ainda em desenvolvimento
-        /// </summary>
-        /*
-        public float CalcularCustoTotal(Custo custo)
-        {
-            if(consulta != null) { 
-            }
-            float custoConsultas = Consultas.Count * custo.Custoconsulta;
-            float custoExames = exames.Count * custo.Custoexame;
-            float custoCirurgias = cirurgias.Count * custo.Custocirugia;
 
-            return custoConsultas + custoExames + custoCirurgias;
-        }
-        */
         #endregion
         #region Destructor
         /// <summary>

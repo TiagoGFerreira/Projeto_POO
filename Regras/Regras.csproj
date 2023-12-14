@@ -42,13 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RegrasHospital.cs" />
-    <Compile Include="IO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dados\Dados.csproj">
       <Project>{5a48d1b3-3dba-4955-974d-9da391de0dfa}</Project>
       <Name>Dados</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Excecoes\Excecoes.csproj">
+      <Project>{39b7391c-e2bb-404a-8c9c-7840c26a79e7}</Project>
+      <Name>Excecoes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Objetos\Objetos.csproj">
       <Project>{a950a5c3-f6ff-471b-8738-b657f30651bb}</Project>

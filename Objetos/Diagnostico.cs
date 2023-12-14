@@ -6,8 +6,8 @@
  * POO-LESI
  */
 
+using Excecoes;
 using System;
-using System.Collections.Generic;
 
 
 namespace Objetos
@@ -18,7 +18,7 @@ namespace Objetos
     public class Diagnostico
     {
         #region ATRIBUTOS
-        private DateTime Data;
+        private DateTime data;
         private string descricao;
         private int NUS;
         private int idMedico;
@@ -30,12 +30,24 @@ namespace Objetos
         /// <summary>
         /// Construtor com parâmetros da Classe Diagnóstico
         /// </summary>
-        public Diagnostico(string Descricao , int idM, int nus, DateTime data)
+        public Diagnostico(string Descricao, int idM, int nus, DateTime Data)
         {
-            Data = data;
-            descricao = Descricao;
-            idMedico = idM;
-            NUS = nus;
+            try
+            {
+                if (data < DateTime.Now)
+                {
+                    throw new DataInvalidaException("Data de nascimento incorreta");
+                }
+                descricao = Descricao;
+                NUS = nus;
+                idMedico = idM;
+                data = Data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
         }
         #endregion
 
@@ -55,8 +67,8 @@ namespace Objetos
         /// </summary>
         public DateTime DataD
         {
-            get { return Data; }
-            set { Data = value; }
+            get { return data; }
+            set { data = value; }
         }
 
         /// <summary>
@@ -84,7 +96,7 @@ namespace Objetos
         /// </summary>
         public override string ToString()
         {
-            return $"Data: {Data}\nMotivo: {Descricao}\nNUS Paciente: {nus}\nID Medico Responsavel: {idMedico}\n------------------------------";
+            return $"Data: {DataD}\nMotivo: {Descricao}\nNUS Paciente: {nus}\nID Medico Responsavel: {idMedico}\n------------------------------";
         }
         #endregion
 

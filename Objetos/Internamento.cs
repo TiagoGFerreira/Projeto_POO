@@ -6,6 +6,7 @@
  * POO-LESI
  */
 
+using Excecoes;
 using System;
 using System.Collections.Generic;
 
@@ -33,10 +34,22 @@ namespace Objetos
 
         public Internamento(string motivo, int idM, int nus, DateTime data)
         {
-            Motivo = motivo;
-            NUS = nus;
-            idMedico = idM;
-            DataInicio = data;
+            try
+            {
+                if (data < DateTime.Now)
+                {
+                    throw new DataInvalidaException("Data de nascimento incorreta");
+                }
+                Motivo = motivo;
+                NUS = nus;
+                idMedico = idM;
+                DataInicio = data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
         }
         #endregion
 

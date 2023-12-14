@@ -7,6 +7,7 @@
  */
 
 
+using Excecoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,23 @@ namespace Objetos
         /// </summary>
         public Exame(string nome , string resultado ,int nus, int MedicoID, DateTime data)
         {
-            Data = data;
-            Nome = nome;
-            Resultado = resultado;
-            NUS = nus;
-            idMedico = MedicoID;
+            try
+            {
+                if (data < DateTime.Now)
+                {
+                    throw new DataInvalidaException("Data de nascimento incorreta");
+                }
+                Data = data;
+                Nome = nome;
+                Resultado = resultado;
+                NUS = nus;
+                idMedico = MedicoID;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
         }
         #endregion
 

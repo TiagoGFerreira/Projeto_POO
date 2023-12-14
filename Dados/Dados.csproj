@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Excecoes\Excecoes.csproj">
+      <Project>{39b7391c-e2bb-404a-8c9c-7840c26a79e7}</Project>
+      <Name>Excecoes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Objetos\Objetos.csproj">
       <Project>{a950a5c3-f6ff-471b-8738-b657f30651bb}</Project>
       <Name>Objetos</Name>

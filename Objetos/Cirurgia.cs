@@ -6,6 +6,7 @@
  * POO-LESI
  */
 
+using Excecoes;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +21,7 @@ namespace Objetos
         private string Nome;
         private DateTime Data;
         private int NUS;
-        private List<int> IdsMedicos;
+        private int IdMedico;
         #endregion
 
         #region COMPORTAMENTO
@@ -29,12 +30,24 @@ namespace Objetos
         /// <summary>
         /// Construtor com parâmetros da Classe Cirurgia
         /// </summary>
-        public Cirurgia(string nome , List<int> idsMedicos, int nus, DateTime data) 
+        public Cirurgia(string nome, int idmedico, int nus, DateTime data)
         {
-            Nome = nome;
-            NUS = nus;
-            IdsMedicos = idsMedicos;
-            Data = data;
+            try
+            {
+                if (data < DateTime.Now)
+                {
+                    throw new DataInvalidaException("Data de nascimento incorreta");
+                }
+                NUS = nus;
+                IdMedico = idmedico;
+                Data = data;
+                Nome = nome;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
         }
         #endregion
 
@@ -61,10 +74,10 @@ namespace Objetos
         /// <summary>
         /// Propriedade que retorna o id do medico
         /// </summary>
-        public List<int> MedicoID
+        public int MedicoID
         {
-            get { return IdsMedicos; }
-            set { IdsMedicos = value; }
+            get { return IdMedico; }
+            set { IdMedico = value; }
         }
 
         /// <summary>
@@ -84,9 +97,8 @@ namespace Objetos
         /// </summary>
         public override string ToString()
         {
-            string idsMedicosStr = string.Join(", ", IdsMedicos);
 
-            return $"Data: {Data}\nNome da Cirurgia: {Nome}\nNUS Paciente: {nus}\nID Medico Responsavel: {idsMedicosStr}\n------------------------------";
+            return $"Data: {Data}\nNome da Cirurgia: {Nome}\nNUS Paciente: {nus}\nID Medico Responsavel: {IdMedico}\n------------------------------";
         }
         #endregion
 

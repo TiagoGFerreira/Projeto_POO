@@ -6,8 +6,10 @@
  * POO-LESI
  */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Excecoes;
 using Objetos;
 
 
@@ -71,6 +73,25 @@ namespace Dados
         {
             return medicos.FirstOrDefault(medico => medico.MedicoID == id);
         }
+
+
+        public static bool VerificaIDMedico(int idM)
+        {
+            if (!(idM.ToString().Length == 9))
+            {
+                throw new IDException("O ID do médico não é válido");
+            }
+
+            foreach (Medico medico in medicos)
+            {
+                if (medico.MedicoID == idM)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public static List<Medico> ListaMedicos()
         {

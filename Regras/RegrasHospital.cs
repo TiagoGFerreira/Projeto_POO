@@ -8,9 +8,11 @@
 
 using Objetos;
 using Dados;
+using Excecoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Regras
 {
@@ -25,7 +27,8 @@ namespace Regras
         /// </summary>
         public static bool AdicionarPessoa(Pessoa pessoa)
         {
-            if(pessoa != null)
+
+            if (pessoa != null)
             {
                 Pessoas.AdicionarPessoa(pessoa);
                 return true;
@@ -61,12 +64,15 @@ namespace Regras
         /// </summary>
         public static bool AdicionarPaciente(Paciente paciente)
         {
-            if (paciente != null)
+            try
             {
                 Pacientes.AdicionarPaciente(paciente);
                 return true;
             }
-            return false;
+            catch (Exception e)
+            {
+                throw new ArgumentNullException(nameof(paciente), "Paciente não pode ser nulo." + "Erro:" + e.Message);
+            }
         }
 
         /// <summary>
@@ -74,12 +80,20 @@ namespace Regras
         /// </summary>
         public static bool RemoverPaciente(Paciente paciente)
         {
-            if (ListaPacientes().Contains(paciente))
+            if (paciente == null)
             {
-                Pacientes.RemoverPaciente(paciente);
-                return true;
+                throw new ArgumentNullException(nameof(paciente), "Paciente não pode ser nulo.");
             }
-            return false;
+            else
+            {
+                if (ListaPacientes().Contains(paciente))
+                {
+                    Pacientes.RemoverPaciente(paciente);
+                    return true;
+                }
+                return false;
+            }
+
         }
 
         /// <summary>
@@ -87,9 +101,10 @@ namespace Regras
         /// </summary>
         public static List<Paciente> ListaPacientes()
         {
-            return Pacientes.ListaPacientes();
-        }
 
+            return Pacientes.ListaPacientes();
+
+        }
 
         /// <summary>
         /// Retorna o objeto paciente de acordo com o seu Nr de utentne
@@ -98,6 +113,24 @@ namespace Regras
         {
             //Fazer excepiton para verificar NUS
             return Pacientes.ObterPacientePorNUS(nus);
+        }
+
+        public static bool GuardarPacientes(string fileName)
+        {
+            if (Pacientes.GuardarPacientes(fileName))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool CarregarPacientes(string fileName)
+        {
+            if (Pacientes.CarregarPacientes(fileName))
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -136,15 +169,21 @@ namespace Regras
             return Medicos.ListaMedicos();
         }
 
-
         /// <summary>
         /// Retorna o objeto paciente de acordo com o seu id
         /// </summary>
         public static Medico ObterMedicoPorID(int id)
         {
-            //Fazer excepiton para verificar NUS
-            return Medicos.ObterMedicoPorId(id);
+            if (Medicos.VerificaIDMedico(id))
+            {
+                return Medicos.ObterMedicoPorId(id);
+            }
+            else
+            {
+                return null;
+            }
         }
+
         #endregion
 
         #region Métodos Internamento
@@ -157,11 +196,11 @@ namespace Regras
             {
                 if (item == internamento)
                 {
-                    Internamento.FimInternamento(internamento, dataFim); 
-                    return true; 
+                    Internamento.FimInternamento(internamento, dataFim);
+                    return true;
                 }
             }
-            return false; 
+            return false;
         }
 
         // <summary>
@@ -171,9 +210,12 @@ namespace Regras
         {
             if (internamento != null)
             {
-                Internamentos.AdicionarInternamento(internamento);
-                AdicionarPacienteCama(internamento.nus, Camas.idCamaVazia());
-                return true;
+                if (Medicos.VerificaIDMedico(internamento.MedicoID) && Pacientes.VerificaNUS(internamento.nus))
+                {
+                    Internamentos.AdicionarInternamento(internamento);
+                    AdicionarPacienteCama(internamento.nus, Camas.idCamaVazia());
+                    return true;
+                }
             }
             return false;
         }
@@ -196,7 +238,7 @@ namespace Regras
         /// </summary>
         public static List<Internamento> ListaInternamento()
         {
-            return Internamentos.ListaInternamento(); 
+            return Internamentos.ListaInternamento();
         }
         #endregion
 
@@ -208,8 +250,11 @@ namespace Regras
         {
             if (exame != null)
             {
-                Exames.AdicionarExame(exame);
-                return true;
+                if (Medicos.VerificaIDMedico(exame.MedicoID) && Pacientes.VerificaNUS(exame.nus))
+                {
+                    Exames.AdicionarExame(exame);
+                    return true;
+                }
             }
             return false;
         }
@@ -244,8 +289,12 @@ namespace Regras
         {
             if (diagnostico != null)
             {
-                Diagnosticos.AdicionarDiagnostico(diagnostico);
-                return true;
+                if (Medicos.VerificaIDMedico(diagnostico.MedicoID) && Pacientes.VerificaNUS(diagnostico.nus))
+                {
+                    Diagnosticos.AdicionarDiagnostico(diagnostico);
+                    return true;
+                }
+
             }
             return false;
         }
@@ -272,7 +321,7 @@ namespace Regras
         }
         #endregion
 
-        #region Métodos Consulta 
+        #region Métodos Consulta
         /// <summary>
         /// Método para adicionar uma consulta da lista de consultas
         /// </summary>
@@ -280,8 +329,11 @@ namespace Regras
         {
             if (consulta != null)
             {
-                Consultas.AdicionarConsulta(consulta);
-                return true;
+                if (Medicos.VerificaIDMedico(consulta.MedicoID) && Pacientes.VerificaNUS(consulta.nus))
+                {
+                    Consultas.AdicionarConsulta(consulta);
+                    return true;
+                }
             }
             return false;
         }
@@ -316,8 +368,11 @@ namespace Regras
         {
             if (cirurgia != null)
             {
-                Cirurgias.AdicionarCirurgia(cirurgia);
-                return true;
+                if (Medicos.VerificaIDMedico(cirurgia.MedicoID) && Pacientes.VerificaNUS(cirurgia.nus))
+                {
+                    Cirurgias.AdicionarCirurgia(cirurgia);
+                    return true;
+                }
             }
             return false;
         }
@@ -352,8 +407,11 @@ namespace Regras
         {
             if (cama != null)
             {
-                Camas.AdicionarCama(cama);
-                return true;
+                if (Pacientes.VerificaNUS(cama.nus) && Camas.VerificaIDCama(cama.Numerocama))
+                {
+                    Camas.AdicionarCama(cama);
+                    return true;
+                }
             }
             return false;
         }
@@ -384,9 +442,12 @@ namespace Regras
         /// </summary>
         public static bool AdicionarPacienteCama(int nus, int id)
         {
-            //excption NUS
-            Camas.AdicionarPaciente(nus, id);
-            return true;
+            if (Camas.VerificaIDCama(id) && Pacientes.VerificaNUS(nus))
+            {
+                Camas.AdicionarPaciente(nus, id);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -394,9 +455,12 @@ namespace Regras
         /// </summary>
         public static bool RemoverPacienteCama(int nus, int id)
         {
-            //excption NUS
-            Camas.RemoverPaciente(nus, id);
-            return true;
+            if (Camas.VerificaIDCama(id) && Pacientes.VerificaNUS(nus))
+            {
+                Camas.RemoverPaciente(nus, id);
+                return true;
+            }
+            return false;
 
         }
         #endregion
@@ -409,8 +473,11 @@ namespace Regras
         {
             if (custo != null)
             {
-                Custos.AdicionarCusto(custo);
-                return true;
+                if (Pacientes.VerificaNUS(custo.nus))
+                {
+                    Custos.AdicionarCusto(custo);
+                    return true;
+                }
             }
             return false;
         }
@@ -436,13 +503,12 @@ namespace Regras
             return Custos.ListaCustos();
         }
 
-
         /// <summary>
         /// Método que retorna o custo final do serviços prestados ao cliente
         /// </summary>º
         public static double CustoTotal(int nus, DateTime dataI, DateTime dataF)
         {
-            if(dataI <= DateTime.Now &&  dataF <= DateTime.Now)
+            if (dataI <= DateTime.Now && dataF <= DateTime.Now)
             {
                 return Custos.CustoTotal(nus, dataI, dataF);
             }

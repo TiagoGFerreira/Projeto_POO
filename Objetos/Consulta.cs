@@ -6,6 +6,7 @@
  * POO-LESI
  */
 
+using Excecoes;
 using System;
 
 namespace Objetos
@@ -32,10 +33,22 @@ namespace Objetos
         /// </summary>
         public Consulta(int idM, int nus, DateTime data, string descricao)
         {
-            idMedico = idM;
-            NUS = nus;
-            Data = data;
-            Descricao = descricao;
+            try
+            {
+                if (data < DateTime.Now)
+                {
+                    throw new DataInvalidaException("Data de nascimento incorreta");
+                }
+                Descricao = descricao;
+                NUS = nus;
+                idMedico = idM;
+                Data = data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
         }
 
         #endregion
@@ -101,9 +114,9 @@ namespace Objetos
         /// <summary>
         /// Método que retorna a data de uma consulta especifica
         /// </summary>
-        public DateTime GetData()
+        public string GetData()
         {
-            return Data;
+            return Data.ToShortDateString();
         }
 
         #endregion

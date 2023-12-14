@@ -18,15 +18,24 @@ namespace GerirHospital
         static void Main(string[] args)
         {
           
-            Pessoa pessoa = new Pessoa("Tiago", new DateTime(2004, 08, 19), "Masculino");
+            Pessoa pessoa = new Pessoa("Joao", new DateTime(2004, 08, 19), "Feminino");
             Pessoa pessoa1 = new Pessoa("Joao", new DateTime(2004, 08, 19), "Masculino");
-            // Criar um objeto Pessoa
 
-            Paciente paciente1 = new Paciente(256758498, pessoa);
+            Paciente paciente1 = new Paciente(23413, pessoa1);
 
-            Medico medico = new Medico(pessoa1, "Cardiologia");
+            if (RegrasHospital.CarregarPacientes("ficheiro.bin")) Console.WriteLine("FEITO");
+            {
+                List<Paciente> pacientes = RegrasHospital.ListaPacientes();
+                foreach(Paciente paciente in pacientes)
+                {
+                    Console.WriteLine(paciente.Nome);
+                }
+            }           
+
+            Medico medico = new Medico(pessoa1, EspecialidadeMedica.Cardiologia);
 
             Internamento internamento = new Internamento("cirugia", 1, 256758498, new DateTime(2023, 10, 11));
+            Console.WriteLine(internamento.dataf);
 
             Exame exame = new Exame("Cardio", "Bom", 256758498, 1, new DateTime(2023, 10, 11));
 
@@ -36,14 +45,15 @@ namespace GerirHospital
 
             Cama cama = new Cama();
 
-
+            //CORRIGIR ERRO
+            //Cirurgia cirurgia = new Cirurgia("teste", 1, 256758498, new DateTime(2023, 10, 11));
             
             RegrasHospital.AdicionarPessoa(pessoa);
             RegrasHospital.AdicionarPessoa(pessoa1);
 
             List<Pessoa> pessoas = RegrasHospital.ListaPessoas();
 
-            RegrasHospital.AdicionarPaciente(paciente1);
+            //RegrasHospital.AdicionarPaciente(paciente1);
             RegrasHospital.AdicionarMedico(medico);
             RegrasHospital.AdicionarConsulta(consulta);
             RegrasHospital.AdicionarDiagnostico(diagnostico);
@@ -51,11 +61,15 @@ namespace GerirHospital
             RegrasHospital.AdicionarCama(cama);
             RegrasHospital.AdicionarInternamento(internamento);
             RegrasHospital.AtualizarInternamento(internamento, new DateTime(2023, 10, 16));
-          
-            
 
-            double custo = RegrasHospital.CustoTotal(256758498, new DateTime(2023, 10, 11), new DateTime(2023, 10, 16)); 
-            Console.WriteLine(custo);
+
+
+            List<Consulta> consultas = RegrasHospital.ListaConsultas();
+            IO.MostrarConsultasMedico(consultas, 1);
+
+            double custo = RegrasHospital.CustoTotal(256758498, new DateTime(2023, 10, 11), new DateTime(2023, 10, 16));
+
+
         }
     }
 }

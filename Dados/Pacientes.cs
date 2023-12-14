@@ -7,11 +7,16 @@
  */
 
 using Objetos;
+using Excecoes;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Dados
 {
+    [Serializable]
     public static class Pacientes
     {
         /// <summary>
@@ -71,6 +76,23 @@ namespace Dados
             return ListadePacientes.FirstOrDefault(p => p.nus == nus);
         }
 
+        public static bool VerificaNUS(int nus)
+        {
+
+                if (!(nus.ToString().Length == 9))
+                {
+                    throw new NUSException("O NR Utente de saude nao e valido");
+                }
+                foreach (Paciente paciente in pacientes)
+                {
+                    if (paciente.nus == nus)
+                    {
+                        return true;
+                    }
+                }
+            return false;
+        }
+
         /// <summary>
         /// Retorna o objeto paciente de acordo com o seu Nr de utentne
         /// </summary>
@@ -78,6 +100,47 @@ namespace Dados
         {
             return pacientes;
         }
+
+
+        public static bool GuardarPacientes(string fileName)
+        {
+            try
+            {
+                using (Stream s = File.Open(fileName, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    BinaryFormatter b = new BinaryFormatter();
+                    b.Serialize(s, pacientes);
+                    // O arquivo será fechado automaticamente ao sair deste bloco 'using'
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public static bool CarregarPacientes(string fileName)
+        {
+            try
+            {
+                using (Stream s = File.Open(fileName, FileMode.Open, FileAccess.Read))
+                {
+                    BinaryFormatter b = new BinaryFormatter();
+                    List<Paciente> pacientesCarregados = (List<Paciente>)b.Deserialize(s);
+
+                    pacientes.AddRange(pacientesCarregados);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
 
         #endregion
         #endregion

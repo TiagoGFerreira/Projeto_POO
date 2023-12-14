@@ -6,20 +6,21 @@
  * POO-LESI
  */
 
-
 using System;
+using Excecoes;
 
 namespace Objetos
 {
     /// <summary>
     /// Classe Pessoa
     /// </summary>
-    public class Pessoa
+
+    [Serializable]
+    public class Pessoa : PessoaBase
     {
-        #region ATRIBUTOS 
+        #region ATRIBUTOS
 
         private string nome;
-        private int idade;
         private DateTime nascimento;
         private string sexo;
         private int idPessoa;
@@ -40,23 +41,43 @@ namespace Objetos
             nome = string.Empty;
             nascimento = DateTime.MinValue;
             sexo = string.Empty;
-            idade = 0;
         }
         public Pessoa(string Nome, DateTime Nascimento, string Sexo)
         {
-            idPessoa = nPessoa; 
-            nPessoa++;
-            nome = Nome;
-            nascimento = Nascimento;
-            sexo = Sexo;
-            idade = Idade;
-        }
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Nome) || string.IsNullOrWhiteSpace(Sexo))
+                {
+                    throw new ArgumentoNuloException("Nome ou Sexo nao podem ir vazios");
+                }
 
+                if (Nascimento > DateTime.Now)
+                {
+                    throw new DataInvalidaException("Data de nascimento incorreta");
+                }
+
+                string nSexo = Sexo.ToUpper();
+                if (!(nSexo.Equals("MASCULINO") || nSexo.Equals("FEMININO")))
+                {
+                    throw new SexoInvalidoException("Sexo deve ser Masculino ou Feminino");
+                }
+
+                idPessoa = nPessoa;
+                nPessoa++;
+                nome = Nome;
+                nascimento = Nascimento;
+                sexo = nSexo;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro: " + ex.Message);
+                throw;
+            }
+        }
 
         #endregion
 
         #region PROPRIEDADES
-
 
         /// <summary>
         /// Propriedade que retorna o Nome da Pessoa
@@ -73,7 +94,7 @@ namespace Objetos
         public string Sexo
         {
             get { return sexo; }
-            set { sexo = value; }
+            set { sexo = value;}
         }
 
         /// <summary>
@@ -90,7 +111,7 @@ namespace Objetos
         /// </summary>
         public int Idade
         {
-            get { return GetIdade; }
+            get { return GetIdade(nascimento); }
         }
 
         /// <summary>
@@ -114,29 +135,8 @@ namespace Objetos
 
         #region OutrosMétodos
 
-        /// <summary>
-        /// O método GetIdade substrai a data atual á data de nacimento da pessoa para obter a sua idade
-        /// </summary>
-        public int GetIdade
-        {
-            get
-            {
-                DateTime dataAtual = DateTime.Now;
-
-                int idade = dataAtual.Year - nascimento.Year;
-
-                if (nascimento.Date > dataAtual.AddYears(-idade))
-                {
-                    //No caso da pessoa ainda não ter feito anos
-                    idade--;
-                }
-
-                return idade;
-            }
-        }
-
-
         #endregion
+
         #region Destructor
         /// <summary>
         /// The destructor.

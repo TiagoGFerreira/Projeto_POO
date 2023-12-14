@@ -6,19 +6,34 @@
  * POO-LESI
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Objetos
 {
+    //Enum de Especilidades de um Medico
+    public enum EspecialidadeMedica
+    {
+        Cardiologia,
+        Neurologia,
+        Ortopedia,
+        Pediatria,
+        Dermatologia,
+        Oftalmologia,
+        Psiquiatria,
+        Ginecologia,
+        Urologia,
+        Oncologia,
+        Otorrinolaringologia,
+        Endocrinologia
+    }
+
     /// <summary>
     /// Classe Médico, herda da classe Pessoa
     /// </summary>
     public class Medico : Pessoa
     {
         #region ATRIBUTOS 
-        private string Especialidade;
+        private EspecialidadeMedica especialidade;
         private int idMedico;
         private static int nMedico = 1;
         #endregion
@@ -30,11 +45,11 @@ namespace Objetos
         /// <summary>
         /// Construtor com parâmetros da Classe Médico
         /// </summary>
-        public Medico(Pessoa pessoa,string especialidade) : base(pessoa.Nome, pessoa.DataNasc, pessoa.Sexo)
+        public Medico(Pessoa pessoa, EspecialidadeMedica Especialidade) : base(pessoa.Nome, pessoa.DataNasc, pessoa.Sexo)
         {
             idMedico = nMedico;
             nMedico++;
-            Especialidade = especialidade;
+            especialidade = Especialidade;
         }
 
         #endregion
@@ -53,10 +68,10 @@ namespace Objetos
         /// <summary>
         /// Propriedade que retorna da classe Especialidade o nome da mesma
         /// </summary>
-        public string Especialidades
+        public EspecialidadeMedica Especialidade
         {
-            get { return Especialidade; }
-            set { Especialidade = value; }
+            get { return especialidade; }
+            set { especialidade = value; }
         }
         #endregion
 
@@ -66,13 +81,11 @@ namespace Objetos
         /// </summary>
         public override string ToString()
         {
-            return $"{base.ToString()}\nEspecialidades: {Especialidades}\n------------------------------";
+            return $"{base.ToString()}\nEspecialidades: {Especialidade.ToString()}\n------------------------------";
         }
         #endregion
 
         #region OutrosMétodos
-
-        
 
         #endregion
 
