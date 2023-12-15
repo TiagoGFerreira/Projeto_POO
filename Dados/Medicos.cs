@@ -77,19 +77,23 @@ namespace Dados
 
         public static bool VerificaIDMedico(int idM)
         {
-            if (!(idM.ToString().Length == 9))
-            {
-                throw new IDException("O ID do médico não é válido");
-            }
+            bool verificaIDMedico = false;
 
             foreach (Medico medico in medicos)
             {
                 if (medico.MedicoID == idM)
                 {
-                    return true;
+                    verificaIDMedico = true;
+                    return verificaIDMedico;
                 }
             }
-            return false;
+
+            if (!verificaIDMedico)
+            {
+                throw new IDException("ID nao existe");
+            }
+
+            return verificaIDMedico; 
         }
 
 

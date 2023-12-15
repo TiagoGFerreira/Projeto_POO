@@ -407,11 +407,8 @@ namespace Regras
         {
             if (cama != null)
             {
-                if (Pacientes.VerificaNUS(cama.nus) && Camas.VerificaIDCama(cama.Numerocama))
-                {
-                    Camas.AdicionarCama(cama);
-                    return true;
-                }
+              Camas.AdicionarCama(cama);
+              return true;
             }
             return false;
         }

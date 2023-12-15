@@ -68,5 +68,16 @@ namespace Excecoes
         {
         }
     }
+
+    public class CamaVaziaException : Exception
+    {
+        public CamaVaziaException() : base("Nao existe camas desocupadas")
+        {
+        }
+
+        public CamaVaziaException(string message) : base(message)
+        {
+        }
+    }
 }
 

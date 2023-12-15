@@ -39,7 +39,7 @@ namespace Objetos
             {
                 if (data < DateTime.Now)
                 {
-                    throw new DataInvalidaException("Data de nascimento incorreta");
+                    throw new DataInvalidaException("Data invalida");
                 }
                 Data = data;
                 Nome = nome;

@@ -78,19 +78,28 @@ namespace Dados
 
         public static bool VerificaNUS(int nus)
         {
+            if (!(nus.ToString().Length == 9))
+            {
+                throw new NUSException("O NR Utente de saude nao e valido");
+            }
 
-                if (!(nus.ToString().Length == 9))
+            bool verificaNUS = false;
+
+            foreach (Paciente paciente in pacientes)
+            {
+                if (paciente.nus == nus)
                 {
-                    throw new NUSException("O NR Utente de saude nao e valido");
+                    verificaNUS = true;
+                    return verificaNUS;
                 }
-                foreach (Paciente paciente in pacientes)
-                {
-                    if (paciente.nus == nus)
-                    {
-                        return true;
-                    }
-                }
-            return false;
+            }
+
+            if (!verificaNUS)
+            {
+                throw new NUSException("O NR Utente de saude nao existe");
+            }
+
+            return verificaNUS; 
         }
 
         /// <summary>

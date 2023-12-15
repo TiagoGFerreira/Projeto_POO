@@ -21,7 +21,7 @@ namespace GerirHospital
             Pessoa pessoa = new Pessoa("Joao", new DateTime(2004, 08, 19), "Feminino");
             Pessoa pessoa1 = new Pessoa("Joao", new DateTime(2004, 08, 19), "Masculino");
 
-            Paciente paciente1 = new Paciente(23413, pessoa1);
+            Paciente paciente1 = new Paciente(234135678, pessoa1);
 
             if (RegrasHospital.CarregarPacientes("ficheiro.bin")) Console.WriteLine("FEITO");
             {
@@ -30,18 +30,20 @@ namespace GerirHospital
                 {
                     Console.WriteLine(paciente.Nome);
                 }
-            }           
+            }
+
+            RegrasHospital.AdicionarPaciente(paciente1);
 
             Medico medico = new Medico(pessoa1, EspecialidadeMedica.Cardiologia);
 
-            Internamento internamento = new Internamento("cirugia", 1, 256758498, new DateTime(2023, 10, 11));
+            Internamento internamento = new Internamento("cirugia", 1, 234135678, new DateTime(2023, 12, 16));
             Console.WriteLine(internamento.dataf);
 
-            Exame exame = new Exame("Cardio", "Bom", 256758498, 1, new DateTime(2023, 10, 11));
+            Exame exame = new Exame("Cardio", "Bom", 234135678, 1, new DateTime(2023, 12, 16));
 
-            Diagnostico diagnostico = new Diagnostico("diagnostico", 1, 256758498, new DateTime(2023, 10, 11));
+            Diagnostico diagnostico = new Diagnostico("diagnostico", 1, 234135678, new DateTime(2023, 12, 16));
 
-            Consulta consulta = new Consulta(1, 256758498, new DateTime(2023, 10, 11), "cardio");
+            Consulta consulta = new Consulta(1, 234135678, new DateTime(2023, 12, 16), "cardio");
 
             Cama cama = new Cama();
 
@@ -67,7 +69,7 @@ namespace GerirHospital
             List<Consulta> consultas = RegrasHospital.ListaConsultas();
             IO.MostrarConsultasMedico(consultas, 1);
 
-            double custo = RegrasHospital.CustoTotal(256758498, new DateTime(2023, 10, 11), new DateTime(2023, 10, 16));
+            double custo = RegrasHospital.CustoTotal(234135678, new DateTime(2023, 10, 11), new DateTime(2023, 10, 16));
 
 
         }

@@ -34,9 +34,9 @@ namespace Objetos
         {
             try
             {
-                if (data < DateTime.Now)
+                if (Data < DateTime.Now)
                 {
-                    throw new DataInvalidaException("Data de nascimento incorreta");
+                    throw new DataInvalidaException("Data invalida");
                 }
                 descricao = Descricao;
                 NUS = nus;
