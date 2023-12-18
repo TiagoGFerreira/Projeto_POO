@@ -39,7 +39,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que imprime as consultas que o paciente especifico irá ter
         /// </summary>
-        public void MostrarConsultasPaciente(List<Consulta> consultas, int nus)
+        public static void MostrarConsultasPaciente(List<Consulta> consultas, int nus)
         {
             foreach (Consulta consulta in consultas)
             {
@@ -56,7 +56,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que imprime as doencas que o paciente contém
         /// </summary>
-        public void DoencasPaciente(int NUS, List<Paciente> doencas)
+        public static void DoencasPaciente(int NUS, List<Paciente> doencas)
         {
             foreach (Paciente doenca in doencas)
             {
@@ -70,7 +70,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que mostra as consultas que o paciente tem agendadas
         /// </summary>
-        public void ConsultasAgendadasPaciente(int NUS, List<Consulta> consultas)
+        public static void ConsultasAgendadasPaciente(int NUS, List<Consulta> consultas)
         {
             foreach (Consulta consulta in consultas)
             {
@@ -84,7 +84,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que mostra as consultas que o medico tem agendadas
         /// </summary>
-        public void ConsultasAgendadasMedico(int idMedico, List<Consulta> consultas)
+        public static void ConsultasAgendadasMedico(int idMedico, List<Consulta> consultas)
         {
             foreach (Consulta consulta in consultas)
             {
@@ -98,7 +98,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que todas as cirurgias
         /// </summary>
-        public void HistoricoCirurgias(List<Cirurgia> cirurgias)
+        public static void HistoricoCirurgias(List<Cirurgia> cirurgias)
         {
             foreach(Cirurgia cirurgia in cirurgias)
             {
@@ -113,7 +113,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que imprime todos os internamentos
         /// </summary>
-        public void HistoricoInternamentos(List<Internamento> internamentos)
+        public static void HistoricoInternamentos(List<Internamento> internamentos)
         {
             foreach (Internamento internamento in internamentos)
             {
@@ -135,7 +135,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que imprime todos os diagnosticos
         /// </summary>
-        public void HistoricoDiagnosticos(List<Diagnostico> diagnosticos)
+        public static void HistoricoDiagnosticos(List<Diagnostico> diagnosticos)
         {
             foreach (Diagnostico diagnostico in diagnosticos)
             {
@@ -150,7 +150,7 @@ namespace GerirHospital
         /// <summary>
         /// Método que imprime todos os exames
         /// </summary>
-        public void HistoricoExames(List<Exame> exames)
+        public static void HistoricoExames(List<Exame> exames)
         {
             foreach (Exame exame in exames)
             {

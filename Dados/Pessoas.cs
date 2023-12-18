@@ -67,22 +67,23 @@ namespace Dados
         }
 
         /// <summary>
-        /// Método para remover uma pessoa da lista de pessoas
-        /// </summary>
-        public static void Listar()
-        {
-            foreach(var pessoa in pessoas)
-            {
-                Console.WriteLine("Nome: " + pessoa.Nome + "  Idade: " + pessoa.Idade + "  Data de Nascimento:" + pessoa.DataNasc.ToShortDateString() + "\n");
-            }
-        }
-
-        /// <summary>
         /// Método para obter a lista Pessoas
         /// </summary>
         public static List<Pessoa> ListaPessoas()
         {
             return pessoas;
+        }
+
+        public static bool PessoaExiste(Pessoa p)
+        {
+            foreach (Pessoa pessoa in pessoas)
+            {
+                if (pessoa.Nome == p.Nome && pessoa.DataNasc == p.DataNasc && pessoa.Sexo == p.Sexo)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #endregion

@@ -28,12 +28,27 @@ namespace Regras
         public static bool AdicionarPessoa(Pessoa pessoa)
         {
 
-            if (pessoa != null)
+            try
             {
-                Pessoas.AdicionarPessoa(pessoa);
-                return true;
+                if (pessoa != null)
+                {
+                    if (Pessoas.PessoaExiste(pessoa))
+                    {
+                        Pessoas.AdicionarPessoa(pessoa);
+                        return true;
+                    }
+                    else
+                    {
+                        throw new ExisteException("Pessoa ja existe");
+                    }
+                }
+                return false;
             }
-            return false;
+            catch (Exception e)
+            {
+                throw new ArgumentNullException("Erro:" + e.Message);
+            }
+            
         }
 
         /// <summary>
@@ -66,12 +81,22 @@ namespace Regras
         {
             try
             {
-                Pacientes.AdicionarPaciente(paciente);
-                return true;
+                if(Pacientes.PacienteExiste(paciente))
+                {
+                    Pacientes.AdicionarPaciente(paciente);
+                    return true;
+                }
+                else
+                {
+                    {
+                        throw new ExisteException("Paciente ja existe");
+                    }
+                }
+                
             }
             catch (Exception e)
             {
-                throw new ArgumentNullException(nameof(paciente), "Paciente não pode ser nulo." + "Erro:" + e.Message);
+                throw new ArgumentNullException("Erro:" + e.Message);
             }
         }
 
@@ -132,6 +157,8 @@ namespace Regras
             }
             return false;
         }
+
+
         #endregion
 
         #region Métodos Médico
@@ -140,12 +167,25 @@ namespace Regras
         /// </summary>
         public static bool AdicionarMedico(Medico medico)
         {
-            if (medico != null)
+            try
             {
-                Medicos.AdicionarMedico(medico);
-                return true;
+                if (Medicos.MedicoExiste(medico))
+                {
+                    Medicos.AdicionarMedico(medico);
+                    return true;
+                }
+                else
+                {
+                    {
+                        throw new ExisteException("Medico ja existe");
+                    }
+                }
+
             }
-            return false;
+            catch (Exception e)
+            {
+                throw new ArgumentNullException("Erro:" + e.Message);
+            }
         }
 
         /// <summary>

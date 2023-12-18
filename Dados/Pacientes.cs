@@ -139,6 +139,8 @@ namespace Dados
                     BinaryFormatter b = new BinaryFormatter();
                     List<Paciente> pacientesCarregados = (List<Paciente>)b.Deserialize(s);
 
+                    // Limpar a lista existente antes de adicionar os pacientes carregados
+                    pacientes.Clear();
                     pacientes.AddRange(pacientesCarregados);
                 }
                 return true;
@@ -150,6 +152,18 @@ namespace Dados
             }
         }
 
+
+        public static bool PacienteExiste(Paciente p)
+        {
+            foreach (Paciente paciente in pacientes)
+            {
+                if (paciente.nus == p.nus)
+                {
+                    return false;
+                }
+            }
+            return true; 
+        }
 
         #endregion
         #endregion

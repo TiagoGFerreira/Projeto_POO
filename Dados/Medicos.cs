@@ -96,10 +96,21 @@ namespace Dados
             return verificaIDMedico; 
         }
 
-
         public static List<Medico> ListaMedicos()
         {
             return medicos;
+        }
+
+        public static bool MedicoExiste(Medico m)
+        {
+            foreach (Medico medico in medicos)
+            {
+                if (medico.Nome == m.Nome && medico.DataNasc == m.DataNasc && medico.Sexo == m.Sexo && medico.Especialidade == m.Especialidade)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         #endregion
         #endregion

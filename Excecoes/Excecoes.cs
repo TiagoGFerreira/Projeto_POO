@@ -79,5 +79,16 @@ namespace Excecoes
         {
         }
     }
+
+    public class ExisteException : Exception
+    {
+        public ExisteException() : base("Nao existe camas desocupadas")
+        {
+        }
+
+        public ExisteException(string message) : base(message)
+        {
+        }
+    }
 }
 
