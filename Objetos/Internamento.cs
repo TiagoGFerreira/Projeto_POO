@@ -8,7 +8,6 @@
 
 using Excecoes;
 using System;
-using System.Collections.Generic;
 
 namespace Objetos
 {
@@ -59,8 +58,8 @@ namespace Objetos
         /// </summary>
         public string motivo
         {
-            get { return motivo; }
-            set { motivo = value; }
+            get { return Motivo; }
+            set { Motivo = value; }
         }
 
         /// <summary>

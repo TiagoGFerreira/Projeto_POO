@@ -8,8 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using Objetos;
 
 namespace Dados
@@ -76,8 +74,6 @@ namespace Dados
         /// <summary>
         /// Método que obtem a lista de internamentos que o paciente fez numa certa data
         /// </summary>
-
-
         public static int CalcularDiasInternamento(int nus, DateTime dataInicio, DateTime dataFim)
         {
             int totalDiasInternamento = 0;
@@ -97,9 +93,6 @@ namespace Dados
 
             return totalDiasInternamento;
         }
-
-
-
         #endregion
         #endregion
     }

@@ -8,9 +8,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
+using System.Linq;
 using Objetos;
-
 
 namespace GerirHospital
 {
@@ -19,6 +18,7 @@ namespace GerirHospital
     /// </summary>
     public class IO
     {
+        #region Médico
         /// <summary>
         /// Método que imprime as consultas que o medico especifico irá ter
         /// </summary>
@@ -26,7 +26,7 @@ namespace GerirHospital
         {
             foreach (Consulta consulta in consultas)
             {
-                if (consulta.MedicoID == idMedico )
+                if (consulta.MedicoID == idMedico)
                 {
                     Console.WriteLine($"Data: {consulta.GetData()}");
                     Console.WriteLine($"Descrição: {consulta.GetDescricao()}");
@@ -36,6 +36,45 @@ namespace GerirHospital
             }
         }
 
+        /// <summary>
+        /// Método que mostra as consultas que o medico tem agendadas
+        /// </summary>
+        public static void ConsultasAgendadasMedico(int idMedico, List<Consulta> consultas)
+        {
+            foreach (Consulta consulta in consultas)
+            {
+                if (consulta.MedicoID == idMedico && DateTime.Now <= consulta.data)
+                {
+                    Console.WriteLine("Data da consulta: " + consulta.GetData()); //consulta.data.ToString("dd/MM/yyyy HH:mm"));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Método que imprime informacoes do Medico de acordo com o ID
+        /// </summary>
+        public static void InfoMedico(int id, List<Medico> lista)
+        {
+            List<Medico> medicos = lista;
+            Medico medicoEncontrado = medicos.FirstOrDefault(p => p.MedicoID == id);
+
+            if (medicoEncontrado != null)
+            {
+                Console.WriteLine("Informações do Medico:");
+                Console.WriteLine($"ID: {id}");
+                Console.WriteLine($"Nome: {medicoEncontrado.Nome}");
+                Console.WriteLine($"Data de Nascimento: {medicoEncontrado.DataNasc.ToShortDateString()}");
+                Console.WriteLine($"Especialidade: {medicoEncontrado.Especialidade}");
+                Console.WriteLine("------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("Paciente não encontrado.");
+            }
+        }
+        #endregion
+
+        #region Paciente
         /// <summary>
         /// Método que imprime as consultas que o paciente especifico irá ter
         /// </summary>
@@ -56,14 +95,52 @@ namespace GerirHospital
         /// <summary>
         /// Método que imprime as doencas que o paciente contém
         /// </summary>
-        public static void DoencasPaciente(int NUS, List<Paciente> doencas)
+        public static void DoencasPaciente(int nus, List<Paciente> lista)
         {
-            foreach (Paciente doenca in doencas)
+            List<Paciente> pacientes = lista;
+            Paciente pacienteEncontrado = pacientes.FirstOrDefault(p => p.nus == nus);
+            if(pacienteEncontrado == null)
             {
-                if (doenca.nus == NUS)
+                Console.WriteLine("Paciente nao encontrado");
+            }
+            List<string> doencas = pacienteEncontrado.doencas;
+            if (pacienteEncontrado.doencas.Count != 0)
+            {
+                foreach (var doenca in doencas)
                 {
-                    Console.WriteLine("Doença: " + doenca);
+                    {
+                        Console.WriteLine("Doença: " + doenca);
+                    }
                 }
+            }
+            else
+            {
+                Console.WriteLine("O paciente nao contem doencas");
+            }
+            
+        }
+
+        /// <summary>
+        /// Método que imprime informacoes do paciente de acordo com o Nr de Utente de Saude
+        /// </summary>
+        public static void InfoPaciente(int nus, List<Paciente> lista)
+        {
+            List<Paciente> pacientes = lista;
+            Paciente pacienteEncontrado = pacientes.FirstOrDefault(p => p.nus == nus);
+
+            if (pacienteEncontrado != null)
+            {
+                Console.WriteLine("Informações do Paciente:");
+                Console.WriteLine($"NUS: {nus}");
+                Console.WriteLine($"Nome: {pacienteEncontrado.Nome}");
+                Console.WriteLine($"Data de Nascimento: {pacienteEncontrado.DataNasc.ToShortDateString()}");
+                Console.WriteLine($"Idade: {pacienteEncontrado.Idade}");
+                Console.WriteLine($"Sexo: {pacienteEncontrado.Sexo}");
+                Console.WriteLine("------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("Paciente não encontrado.");
             }
         }
 
@@ -76,31 +153,20 @@ namespace GerirHospital
             {
                 if (consulta.nus == NUS && DateTime.Now <= consulta.data)
                 {
-                    Console.WriteLine("Data da consulta: " + consulta.GetData());//consulta.data.ToString("dd/MM/yyyy HH:mm"));
+                    Console.WriteLine("Data da consulta: " + consulta.GetData()); //consulta.data.ToString("dd/MM/yyyy HH:mm"));
                 }
             }
         }
 
-        /// <summary>
-        /// Método que mostra as consultas que o medico tem agendadas
-        /// </summary>
-        public static void ConsultasAgendadasMedico(int idMedico, List<Consulta> consultas)
-        {
-            foreach (Consulta consulta in consultas)
-            {
-                if (consulta.MedicoID == idMedico && DateTime.Now <= consulta.data)
-                {
-                    Console.WriteLine("Data da consulta: " + consulta.GetData());//consulta.data.ToString("dd/MM/yyyy HH:mm"));
-                }
-            }
-        }
+        #endregion
 
+        #region Histórico
         /// <summary>
         /// Método que todas as cirurgias
         /// </summary>
         public static void HistoricoCirurgias(List<Cirurgia> cirurgias)
         {
-            foreach(Cirurgia cirurgia in cirurgias)
+            foreach (Cirurgia cirurgia in cirurgias)
             {
                 Console.WriteLine($"Nome: {cirurgia.nome}");
                 Console.WriteLine($"Data: {cirurgia.data.ToShortDateString()}");
@@ -119,7 +185,7 @@ namespace GerirHospital
             {
                 Console.WriteLine($"Nome: {internamento.motivo}");
                 Console.WriteLine($"Data de Inicio: {internamento.datai.ToShortDateString()}");
-                if(internamento.dataf > internamento.datai)
+                if (internamento.dataf > internamento.datai)
                 {
                     TimeSpan diferenca = internamento.dataf - internamento.datai;
                     int nrDias = diferenca.Days;
@@ -162,10 +228,13 @@ namespace GerirHospital
                 Console.WriteLine("------------------------------");
             }
         }
+        #endregion
 
-
-
-
-
+        #region Custo
+        public static void ImprimeCusto(double custo, int NUS)
+        {
+            Console.WriteLine($"O custo do paciente com nrUtente : {NUS} foi {custo}");
+        }
+        #endregion
     }
 }

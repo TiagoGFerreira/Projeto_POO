@@ -148,14 +148,17 @@ namespace Dados
         public static int idCamaVazia()
         {
             List<Cama> camas = CamasDesocupadas();
-            if(camas == null)
-            {;
+            if(camas.Count == 0)
+            {
                 throw new CamaVaziaException("Nao existe camas desocupadas");
             }
             return camas.FirstOrDefault().Numerocama;
         }
 
 
+        /// <summary>
+        /// Verifica se existe o id da cama inserido na lista de camas
+        /// </summary>
         public static bool VerificaIDCama(int idC)
         {
             foreach (Cama cama in camas)

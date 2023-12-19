@@ -6,8 +6,6 @@
  * POO-LESI
  */
 
-using System;
-
 namespace Objetos
 {
     /// <summary>
@@ -15,7 +13,7 @@ namespace Objetos
     /// </summary>
     public class Cama
     {
-        #region ATRIBUTOS 
+        #region ATRIBUTOS
         private int NumeroCama;
         private bool Estado;
         private static int pNumeroCama = 1;
@@ -46,7 +44,10 @@ namespace Objetos
         /// </summary>
         public int Numerocama
         {
-            get { return NumeroCama; }
+            get
+            {
+                return NumeroCama;
+            }
         }
 
         /// <summary>
@@ -54,8 +55,14 @@ namespace Objetos
         /// </summary>
         public bool EstadoCama
         {
-            get { return Estado; }
-            set { Estado = value; }
+            get
+            {
+                return Estado;
+            }
+            set
+            {
+                Estado = value;
+            }
         }
 
         /// <summary>
@@ -63,8 +70,14 @@ namespace Objetos
         /// </summary>
         public int nus
         {
-            get { return NUS; }
-            set { NUS = value; }
+            get
+            {
+                return NUS;
+            }
+            set
+            {
+                NUS = value;
+            }
         }
         #endregion
 

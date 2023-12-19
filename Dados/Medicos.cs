@@ -6,7 +6,6 @@
  * POO-LESI
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Excecoes;
@@ -74,7 +73,9 @@ namespace Dados
             return medicos.FirstOrDefault(medico => medico.MedicoID == id);
         }
 
-
+        /// <summary>
+        /// Método que verifica se o id que o utilizador inseriu é valido
+        /// </summary>
         public static bool VerificaIDMedico(int idM)
         {
             bool verificaIDMedico = false;
@@ -96,16 +97,22 @@ namespace Dados
             return verificaIDMedico; 
         }
 
+        /// <summary>
+        /// Método que retorna a lista medicos
+        /// </summary>
         public static List<Medico> ListaMedicos()
         {
             return medicos;
         }
 
+        /// <summary>
+        /// Método que verifica e compara se já não existe um medico igual na lista , se não existir retorna true
+        /// </summary>
         public static bool MedicoExiste(Medico m)
         {
             foreach (Medico medico in medicos)
             {
-                if (medico.Nome == m.Nome && medico.DataNasc == m.DataNasc && medico.Sexo == m.Sexo && medico.Especialidade == m.Especialidade)
+                if (medico.Nome == m.Nome && medico.DataNasc == m.DataNasc && medico.Sexo == m.Sexo)
                 {
                     return false;
                 }

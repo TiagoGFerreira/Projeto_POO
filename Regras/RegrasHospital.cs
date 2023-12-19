@@ -6,13 +6,11 @@
  * POO-LESI
  */
 
-using Objetos;
 using Dados;
 using Excecoes;
+using Objetos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 
 namespace Regras
 {
@@ -27,28 +25,19 @@ namespace Regras
         /// </summary>
         public static bool AdicionarPessoa(Pessoa pessoa)
         {
-
-            try
+            if (pessoa != null)
             {
-                if (pessoa != null)
+                if (Pessoas.PessoaExiste(pessoa))
                 {
-                    if (Pessoas.PessoaExiste(pessoa))
-                    {
-                        Pessoas.AdicionarPessoa(pessoa);
-                        return true;
-                    }
-                    else
-                    {
-                        throw new ExisteException("Pessoa ja existe");
-                    }
+                    Pessoas.AdicionarPessoa(pessoa);
+                    return true;
                 }
-                return false;
+                else
+                {
+                    throw new ExisteException("Pessoa já existe");
+                }
             }
-            catch (Exception e)
-            {
-                throw new ArgumentNullException("Erro:" + e.Message);
-            }
-            
+            return false;
         }
 
         /// <summary>
@@ -79,25 +68,28 @@ namespace Regras
         /// </summary>
         public static bool AdicionarPaciente(Paciente paciente)
         {
-            try
+            if (Pacientes.PacienteExiste(paciente))
             {
-                if(Pacientes.PacienteExiste(paciente))
-                {
-                    Pacientes.AdicionarPaciente(paciente);
-                    return true;
-                }
-                else
-                {
-                    {
-                        throw new ExisteException("Paciente ja existe");
-                    }
-                }
-                
+                Pacientes.AdicionarPaciente(paciente);
+                return true;
             }
-            catch (Exception e)
+            else
             {
-                throw new ArgumentNullException("Erro:" + e.Message);
+                throw new ExisteException("Paciente já existe");
             }
+        }
+
+        /// <summary>
+        /// Método adiciona uma doenca á lista de doencas do paciente
+        /// </summary>
+        public static bool AdicionarDoenca(Paciente paciente, string novaDoenca)
+        {
+            if(novaDoenca != null)
+            {
+                paciente.AdicionarDoenca(paciente,novaDoenca);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -140,6 +132,9 @@ namespace Regras
             return Pacientes.ObterPacientePorNUS(nus);
         }
 
+        /// <summary>
+        /// Método que serializa e guarda a lista de pacientes num ficheiro binário
+        /// </summary>
         public static bool GuardarPacientes(string fileName)
         {
             if (Pacientes.GuardarPacientes(fileName))
@@ -149,6 +144,9 @@ namespace Regras
             return false;
         }
 
+        /// <summary>
+        /// Método que carrega os pacientes de um ficheiro binário e adiciona-os à lista atual.
+        /// </summary>
         public static bool CarregarPacientes(string fileName)
         {
             if (Pacientes.CarregarPacientes(fileName))
@@ -158,7 +156,6 @@ namespace Regras
             return false;
         }
 
-
         #endregion
 
         #region Métodos Médico
@@ -167,24 +164,14 @@ namespace Regras
         /// </summary>
         public static bool AdicionarMedico(Medico medico)
         {
-            try
+            if (Medicos.MedicoExiste(medico))
             {
-                if (Medicos.MedicoExiste(medico))
-                {
-                    Medicos.AdicionarMedico(medico);
-                    return true;
-                }
-                else
-                {
-                    {
-                        throw new ExisteException("Medico ja existe");
-                    }
-                }
-
+                Medicos.AdicionarMedico(medico);
+                return true;
             }
-            catch (Exception e)
+            else
             {
-                throw new ArgumentNullException("Erro:" + e.Message);
+                throw new ExisteException("Médico já existe");
             }
         }
 
@@ -447,8 +434,8 @@ namespace Regras
         {
             if (cama != null)
             {
-              Camas.AdicionarCama(cama);
-              return true;
+                Camas.AdicionarCama(cama);
+                return true;
             }
             return false;
         }
@@ -545,7 +532,8 @@ namespace Regras
         /// </summary>º
         public static double CustoTotal(int nus, DateTime dataI, DateTime dataF)
         {
-            if (dataI <= DateTime.Now && dataF <= DateTime.Now)
+
+            if (Pacientes.VerificaNUS(nus))
             {
                 return Custos.CustoTotal(nus, dataI, dataF);
             }

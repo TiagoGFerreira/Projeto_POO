@@ -8,7 +8,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Excecoes;
 using Objetos;
 
 namespace Dados
@@ -76,19 +76,17 @@ namespace Dados
             List<Exame> i = new List<Exame>();
             foreach (Exame exame in exames)
             {
-                if (exame.nus == nus && exame.data >= dataInicio && exame.data <= dataFim)
+                if (dataFim <= dataInicio)
+                {
+                    throw new DataInvalidaException("Data invalida");
+                }
+                if (exame.nus == nus)
                 {
                     i.Add(exame);
                 }
             }
             return i;
         }
-
-        /// <summary>
-        /// Método que retorna em lista todos os exames feitos pelo paciente
-        /// Método interno para poder ser acedido apenas dentro do mesmo assembly
-        /// Ainda em desenvolvimento
-        /// </summary>
         
         #endregion
         #endregion

@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Excecoes;
 using Objetos;
 
 namespace Dados
@@ -63,6 +64,9 @@ namespace Dados
             consultas.Remove(consulta);
         }
 
+        /// <summary>
+        /// Método que retorna a lista consultas
+        /// </summary>
         public static List<Consulta> ListaConsultas()
         {
             return consultas;
@@ -76,7 +80,11 @@ namespace Dados
             List<Consulta> i = new List<Consulta>();
             foreach (Consulta consulta in consultas)
             {
-                if (consulta.nus == nus && consulta.data >= dataInicio && consulta.data <= dataFim)
+                if (dataFim <= dataInicio)
+                {
+                    throw new DataInvalidaException("Data invalida");
+                }
+                if (consulta.nus == nus)
                 {
                     i.Add(consulta);
                 }

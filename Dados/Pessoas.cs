@@ -6,10 +6,8 @@
  * POO-LESI
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Objetos;
+using System.Collections.Generic;
 
 namespace Dados
 {
@@ -74,6 +72,9 @@ namespace Dados
             return pessoas;
         }
 
+        /// <summary>
+        /// Método que verifica e compara se já não existe uma pessoa igual na lista , senao existir retorna true
+        /// </summary>
         public static bool PessoaExiste(Pessoa p)
         {
             foreach (Pessoa pessoa in pessoas)

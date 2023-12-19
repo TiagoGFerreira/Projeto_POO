@@ -10,14 +10,24 @@ using System;
 
 namespace Objetos
 {
+    /// <summary>
+    /// Interface IPessoa
+    /// </summary>
     public interface IPessoa
     {
         int GetIdade(DateTime DataNasc);
     }
 
+
+    /// <summary>
+    /// Classe abstrata PessoaBase que herda da interface IPessoa
+    /// </summary>
     [Serializable]
     public abstract class PessoaBase : IPessoa
     {
+        /// <summary>
+        /// Metodo GetIdade que de acordo com a Data de Nascimento calcula a idade que ele tem
+        /// </summary>
         public int GetIdade(DateTime DataNasc)
         {
             DateTime dataAtual = DateTime.Now;

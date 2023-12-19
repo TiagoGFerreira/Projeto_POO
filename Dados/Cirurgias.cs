@@ -8,7 +8,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Excecoes;
 using Objetos;
 
 namespace Dados
@@ -75,7 +75,11 @@ namespace Dados
             List<Cirurgia> i = new List<Cirurgia>();
             foreach (Cirurgia cirurgia in cirurgias)
             {
-                if (cirurgia.nus == nus && cirurgia.data >= dataInicio && cirurgia.data <= dataFim)
+                if (dataFim <= dataInicio)
+                {
+                    throw new DataInvalidaException("Data invalida");
+                }
+                if (cirurgia.nus == nus)
                 {
                     i.Add(cirurgia);
                 }

@@ -76,6 +76,9 @@ namespace Dados
             return ListadePacientes.FirstOrDefault(p => p.nus == nus);
         }
 
+        /// <summary>
+        /// Método que verifica se o NR Utente está no formato correto e se realmente está guardado na lista
+        /// </summary>
         public static bool VerificaNUS(int nus)
         {
             if (!(nus.ToString().Length == 9))
@@ -110,16 +113,21 @@ namespace Dados
             return pacientes;
         }
 
-
+        /// <summary>
+        /// Método que serializa e guarda a lista de pacientes num ficheiro binário
+        /// </summary>
         public static bool GuardarPacientes(string fileName)
         {
             try
             {
+                if (!File.Exists(fileName))
+                {
+                    using (File.Create(fileName)) { }
+                }
                 using (Stream s = File.Open(fileName, FileMode.Create, FileAccess.ReadWrite))
                 {
                     BinaryFormatter b = new BinaryFormatter();
                     b.Serialize(s, pacientes);
-                    // O arquivo será fechado automaticamente ao sair deste bloco 'using'
                 }
                 return true;
             }
@@ -130,6 +138,10 @@ namespace Dados
             }
         }
 
+
+        /// <summary>
+        /// Método que carrega os pacientes de um ficheiro binário e adiciona-os à lista atual.
+        /// </summary>
         public static bool CarregarPacientes(string fileName)
         {
             try
@@ -139,7 +151,6 @@ namespace Dados
                     BinaryFormatter b = new BinaryFormatter();
                     List<Paciente> pacientesCarregados = (List<Paciente>)b.Deserialize(s);
 
-                    // Limpar a lista existente antes de adicionar os pacientes carregados
                     pacientes.Clear();
                     pacientes.AddRange(pacientesCarregados);
                 }
@@ -153,6 +164,9 @@ namespace Dados
         }
 
 
+        /// <summary>
+        /// Método que verifica e compara se já não existe um paciente igual na lista , senao existir retorna true
+        /// </summary>
         public static bool PacienteExiste(Paciente p)
         {
             foreach (Paciente paciente in pacientes)
@@ -164,7 +178,6 @@ namespace Dados
             }
             return true; 
         }
-
         #endregion
         #endregion
     }

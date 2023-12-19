@@ -85,6 +85,13 @@ namespace Objetos
 
         #region OutrosMétodos
 
+        /// <summary>
+        /// Método adiciona uma doenca á lista de doencas do paciente
+        /// </summary>
+        public void AdicionarDoenca(Paciente paciente, string novaDoenca)
+        {
+            paciente.doencas.Add(novaDoenca);
+        }
         #endregion
         #region Destructor
         /// <summary>

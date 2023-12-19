@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Objetos;
+using Excecoes;
 
 namespace Dados
 {
@@ -49,7 +50,6 @@ namespace Dados
         /// <summary>
         /// Método para adicionar um custo na lista de custos
         /// </summary>
-
         public static void AdicionarCusto(Custo custo)
         {
             custos.Add(custo);
@@ -60,7 +60,6 @@ namespace Dados
         /// <summary>
         /// Método para remover um custo na lista de custos
         /// </summary>
-
         public static void RemoverCusto(Custo custo)
         {
             custos.Remove(custo);
@@ -81,10 +80,15 @@ namespace Dados
                 double custoInternamentos = Internamentos.CalcularDiasInternamento(nus,dataI,dataF) * CustoInternamento;
                 return custoConsultas + custoExames + custoCirurgias + custoDiagnosticos + custoInternamentos;
             }
-            return 0;
-            //colocar erro aqui caso não dê
+            else
+            {
+                throw new CustoException("Nao foi possivel calcular o custo");
+            }
         }
 
+        /// <summary>
+        /// Método que retorna a lista custos
+        /// </summary>
         public static List<Custo> ListaCustos()
         {
             return custos;
